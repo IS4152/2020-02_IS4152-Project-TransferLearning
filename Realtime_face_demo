@@ -1,10 +1,6 @@
 import cv2
 import torch
 from PIL import Image
-import matplotlib.pyplot as plt
-import argparse
-import os
-#from model import *
 from torchvision import datasets, models, transforms
 import numpy as np
 import imutils
