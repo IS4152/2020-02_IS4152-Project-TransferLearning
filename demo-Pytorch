@@ -7,6 +7,7 @@ import os
 #from model import *
 from torchvision import datasets, models, transforms
 import numpy as np
+import imutils
 
 
 def load_trained_model(model_path):
@@ -17,7 +18,7 @@ def load_trained_model(model_path):
     #model.load_state_dict()
     return model
 
-def FER_live_cam():
+def live_cam():
 
     model = load_trained_model('/Users/charlottejingy/Documents/Pycharm/pytorch-onnx/PyTorch/models/resnet_15epoch_preTrained_featureExtract.pt')
     
@@ -33,7 +34,8 @@ def FER_live_cam():
     cap = cv2.VideoCapture(0)
 
     while True:
-        ret, frame = cap.read()
+        frame = cap.read()[1]
+        frame = imutils.resize(frame, width=700)
         #gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
@@ -42,8 +44,8 @@ def FER_live_cam():
 
         for (x, y, w, h) in faces:
             cv2.rectangle(frame, (x,y), (x+w, y+h), (255,0,0), 2)
-            resize_frame = cv2.resize(gray[y:y + h, x:x + w], (48, 48))
-            X = resize_frame/256
+            resize_frame = cv2.resize(gray[y:y + h, x:x + w], (224, 224))
+            X = resize_frame  ##
             ###
             X = np.uint8(X)
             ###
@@ -52,11 +54,14 @@ def FER_live_cam():
 
             with torch.no_grad():
                 model.eval()
-                log_ps = model.cpu()(X)
+                log_ps = model.cpu()(X)   #use cpu
                 ps = torch.exp(log_ps)
                 top_p, top_class = ps.topk(1, dim=1)
                 pred = emotion_dict[int(top_class.numpy())]
-            cv2.putText(frame, pred, (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 1)
+                #print(top_class)
+                #print(top_p)
+            cv2.putText(frame, pred, (x, y), cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 255, 0), 1)
+
         
         cv2.imshow('frame', frame)
         if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -69,4 +74,5 @@ def FER_live_cam():
 
 if __name__ == "__main__":
 
-    FER_live_cam()
+    live_cam()
+
