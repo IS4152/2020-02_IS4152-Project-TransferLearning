@@ -1,37 +1,11 @@
-## Welcome to GitHub Pages
+# Introduction
+Facial expressions recognition (FER) has many beneficial applications in the real world, ranging from education to healthcare and even the service industry. Therefore, there has been an increasing amount of research done to build powerful models that can accurately predict the emotion one is currently feeling. In this project, we aim to access different transfer learning methods to build a FER model that predicts one of the 7 basic emotions (neutral, anger, disgust, fear, happy, saddness and surprise). We pooled a total of 4 datasets (CK+, FER-2013, AffectNet and Aff-Wild2) and used it to train 5 different models (AlexNet, VGG, ResNet, VGGFace and VGGFace2) in 3 different ways (Fine-tuning the entire model, Freezing the Layer Weights and Progressive Transfer Learning)
 
-You can use the [editor on GitHub](https://github.com/JonathanSohWeiWen/IS4152-Project/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+# Code description
+Our codes are split into 2 main files, Data Preprocessing.ipynb and Model Pipelines.ipynb.<br/>
+Data Preprocessing.ipynb cotains all our data cleaning and preparation steps, while Model Pipelines.ipynb contains our codes to run the experiments for the various models
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/JonathanSohWeiWen/IS4152-Project/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+# Demo
+We also have a demo application, live_cam_best.py <br/>
+This application is a live videostream which will read data from the facial features detecting by the camera, and predict the emotion expressed on the face in real time.
+The demo application will require loads our best model to make the predictions, however we have not made this model available publically, as such the demo application will not work as intended.
